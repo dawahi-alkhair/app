@@ -51,6 +51,8 @@
         
         .share-btn { background: #25d366; } /* لون واتساب */
         .print-btn { background: #e67e22; }
+        .copy-btn { background: #2980b9; }
+        .paste-btn { background: #8e44ad; }
         .back-btn { background: #95a5a6; }
         .clear-btn { background: #c0392b; }
         
@@ -62,7 +64,6 @@
             margin-bottom: 2px;
         }
 
-        
         /* هذا الجزء مهم جداً لسفاري: جعل الحاوية مطابقة تماماً لمقاس A4 */
         #pdf-content { 
             width: 210mm; 
@@ -72,10 +73,9 @@
             margin: 0;
         }
 
-
         .page { 
             width: 210mm; 
-            height: 296.8mm; 
+            height: 296.5mm; /* تقليل بسيط جداً لتجنب تداخل الصفحات في سفاري */
             background-size: 100% 100%; 
             background-repeat: no-repeat; 
             position: relative; 
@@ -87,13 +87,21 @@
         }
 
         #page1 { background-image: url('0001.jpg'); }
+        #page2 { background-image: url('0002.jpg'); }
 
         input { position: absolute; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(0,0,0,0.1); font-size: 15px; text-align: center; outline: none; color: black; }
         .exporting input { border: none !important; background: transparent !important; }
 
-        /* تموضع الخانات */
-        .from-loc { top: 223px; left: 50px; width: 145px; }
-        .to-loc { top: 223px; left: 205px; width: 145px; }
+        /* تموضع الخانات الرئيسية في الصفحة الأولى */
+        .inp-date-top { top: 100px; left: 55px; width: 130px; }
+        .driver-name { top: 232px; left: 400px; width: 190px; }
+        .from-loc { top: 232px; left: 195px; width: 102px; }
+        .to-loc { top: 282px; left: 440px; width: 151px; }
+        .box-driver { top: 945px; left: 400px; width: 190px; }
+        /* تموضع المربعات النصية الثلاثة الجديدة في الصفحة الثانية (يمكنك تعديل الأماكن top و left حسب تصميم صورتك الثانية) */
+        .box-date { top: 100px; left: 55px; width: 130px; }
+        .box-from { top: 210px; left: 130px; width: 102px; }
+        .box-to   { top: 210px; left: 460px; width: 151px; }
 
         @media print { 
             .header-bg, .toolbar { display: none !important; }
@@ -128,81 +136,106 @@
     </div>
 
     <div id="pdf-content">
+        <!-- الصفحة الأولى -->
         <div class="page" id="page1">
-            <input type="text" id="fromInput" class="from-loc" data-save="d6">
-            <input type="text" id="toInput" class="to-loc" data-save="d7">
+            <input type="text" id="todayDate" class="inp-date-top" data-save="d1">
+            <input type="text" class="from-loc" data-save="d6">
+            <input type="text" class="to-loc" data-save="d7">
+            <input type="text" class="driver-name" data-save="d8">
+            <input type="text" id="autodriverBox" class="box-driver" readonly>
+
+        </div>
+
+        <!-- الصفحة الثانية (تحتوي الآن على المربعات التلقائية) -->
+        <div class="page" id="page2">
+            <input type="text" id="autoDateBox" class="box-date" readonly>
+            <input type="text" id="autoFromBox" class="box-from" readonly>
+            <input type="text" id="autoToBox" class="box-to" readonly>
         </div>
     </div>
 
     <script>
-        // إعداد المعرف الخاص بالصفحة والتخزين
         const path = window.location.pathname;
-        let pageID = path.includes('/100/') ? "D100_" : (path.includes('/101/') ? "D101_" : "D102_");
+        let pageID = path.includes('/1/') ? "D1_" : (path.includes('/2/') ? "D2_" : "D3_");
         
         const allInputs = document.querySelectorAll('input[data-save]');
+        
+        const todayDateInput = document.getElementById('todayDate');
+        const fromLocInput = document.querySelector('.from-loc');
+        const toLocInput = document.querySelector('.to-loc');
+        const drivernameInput = document.querySelector('.driver-name');
 
-        // دالة للحصول على تاريخ اليوم بتنسيق YYYY-MM-DD
-        function getTodayDate() {
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            let mm = today.getMonth() + 1; 
-            let dd = today.getDate();
-            if (dd < 10) dd = '0' + dd;
-            if (mm < 10) mm = '0' + mm;
-            return yyyy + '-' + mm + '-' + dd;
+        const autoDateBox = document.getElementById('autoDateBox');
+        const autoFromBox = document.getElementById('autoFromBox');
+        const autoToBox = document.getElementById('autoToBox');
+        const autodriverBox = document.getElementById('autodriverBox');
+
+        // دالة تحديث القيم تلقائياً في مربعات الصفحة الثانية
+        function updateAutoBoxes() {
+            autoDateBox.value = todayDateInput.value;
+            autoFromBox.value = fromLocInput.value;
+            autoToBox.value = toLocInput.value;
+            autodriverBox.value = drivernameInput.value;
+
         }
 
-        // استرجاع البيانات مع إجبار خانات التاريخ على تاريخ اليوم
-        window.addEventListener('load', () => {
-            const today = getTodayDate();
+        // دالة التاريخ (يوم - شهر - سنة)
+        function applyTodayDate() {
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
             
-            allInputs.forEach(input => {
-                const storageKey = pageID + input.getAttribute('data-save');
-                
-                // التحقق مما إذا كانت الخانة هي d6 أو d7 (خانات التاريخ)
-                if (input.getAttribute('data-save') === 'd6' || input.getAttribute('data-save') === 'd7') {
-                    input.value = today;
-                    localStorage.setItem(storageKey, today);
-                } else {
-                    const savedVal = localStorage.getItem(storageKey);
-                    if (savedVal) {
-                        input.value = savedVal;
-                    }
-                }
+            const dateString = yyyy + '-' + mm + '-' + dd;
+            
+            todayDateInput.value = dateString;
+            localStorage.setItem(pageID + "d1", dateString);
+            updateAutoBoxes();
+        }
 
-                input.addEventListener('input', () => {
-                    localStorage.setItem(storageKey, input.value);
-                });
+        // حفظ وقراءة البيانات وتحديث المربعات التلقائية
+        allInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                localStorage.setItem(pageID + input.getAttribute('data-save'), input.value);
+                updateAutoBoxes();
             });
         });
 
+        window.addEventListener('load', () => {
+            allInputs.forEach(input => {
+                const val = localStorage.getItem(pageID + input.getAttribute('data-save'));
+                if (val) input.value = val;
+            });
+            applyTodayDate();
+            updateAutoBoxes();
+        });
+
         function clearData() { 
-            if(confirm("هل تريد مسح البيانات؟ (سيتم إعادة تعيين التاريخ عند التحديث)")) { 
+            if(confirm("مسح؟")) { 
                 allInputs.forEach(i => { 
                     localStorage.removeItem(pageID + i.getAttribute('data-save')); 
                     i.value = ''; 
                 }); 
+                applyTodayDate();
+                updateAutoBoxes();
             } 
         }
 
-        // وظيفة المشاركة (مشاركة الصفحة الأولى فقط)
         document.getElementById('shareBtn').addEventListener('click', async function() {
-            const element = document.getElementById('page1'); 
-            const btn = this;
-            btn.disabled = true;
+            const element = document.getElementById('pdf-content');
             element.classList.add('exporting');
-
+            
             const opt = {
                 margin: 0,
-                filename: 'تقرير_الفحص.pdf',
+                filename: 'كشف_الركاب.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
-                    scale: 2,           
+                    scale: 2,            
                     useCORS: true, 
                     logging: false,
                     letterRendering: true,
                     allowTaint: false,
-                    scrollX: 0,           
+                    scrollX: 0,          
                     scrollY: 0,
                     windowWidth: 794    
                 },
@@ -212,20 +245,18 @@
 
             try {
                 window.scrollTo(0, 0);
-
-                const worker = html2pdf().set(opt).from(element);
+                const pdfWorker = html2pdf().set(opt).from(element);
                 
                 if (navigator.share && navigator.canShare) {
-                    const pdfBlob = await worker.output('blob');
-                    const file = new File([pdfBlob], "تقرير_الفحص.pdf", { type: "application/pdf" });
-
-                    if (navigator.canShare({ files: [file] })) {
-                        await navigator.share({ files: [file], title: 'تقرير الفحص' });
-                    } else {
-                        await worker.save();
-                    }
+                    const pdfBlob = await pdfWorker.output('blob');
+                    const file = new File([pdfBlob], "كشف_الركاب.pdf", { type: "application/pdf" });
+                    
+                    await navigator.share({
+                        files: [file],
+                        title: 'كشف الركاب'
+                    });
                 } else {
-                    await worker.save();
+                    await pdfWorker.save();
                 }
             } catch (err) {
                 console.error(err);
@@ -233,7 +264,6 @@
                 html2pdf().set(opt).from(element).save();
             } finally {
                 element.classList.remove('exporting');
-                btn.disabled = false;
             }
         });
 
