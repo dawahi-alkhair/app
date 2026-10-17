@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> شركة ضواحي الخير</title>
+    <title>شركة ضواحي الخير</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #f0f0f0; 
+            background-color: #f4f6f9; 
             text-align: center; 
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* الجزء العلوي */
         .header-section {
             width: 100%;
-            height: 350px; /* زيادة الارتفاع لاستيعاب الشعار */
-            background-image: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.150)), url('header_bg.jpg'); 
+            min-height: 280px;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('header_bg.jpg'); 
             background-size: cover;
             background-position: center;
             display: flex;
@@ -27,101 +33,116 @@
             justify-content: center;
             align-items: center;
             color: white;
-            box-shadow: 0 4px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            padding: 20px;
         }
 
         .logo {
-            width: 350px;
-            height: 350px;
+            width: 150px;
+            height: 150px;
             background-image: url('logo.png'); 
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            margin: 0 auto 10px auto;
-            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.0));
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
         }
 
         .header-section h1 { 
-            margin: -30px auto 30px auto; 
-            font-size: 26px; 
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+            font-size: clamp(20px, 4vw, 26px); 
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7); 
+            line-height: 1.3;
+        }
 
-        /* حاوية القوائم الأساسية */
+        /* حاوية القوائم الأساسية - تتوسط الصفحة بالكامل */
         .main-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 550px;
             margin: -30px auto 30px auto;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 10;
         }
 
         .menu-column {
-            flex: 1;
-            min-width: 320px;
+            width: 100%;
             background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        h2 { 
+        .menu-title { 
+            width: 100%;
             color: #2c3e50; 
             margin-bottom: 20px; 
             font-size: 18px; 
-            border-bottom: 2px solid #eee;
+            border-bottom: 2px solid #f0f0f0;
             padding-bottom: 10px;
         }
 
-        .btn {
+        /* زر تقرير الفحص الأزرق ومتناسق كلياً */
+        .btn-tq { 
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* محاذاة العناصر من البداية */
-            padding: 12px 15px;
-width: 350px;
-            margin: 10px  auto;
-            font-size: 16px;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px; /* العرض الأقصى للزر على اللابتوب */
+            padding: 14px 20px;
+            font-size: 17px;
+            font-weight: bold;
             color: white;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2980b9, #213c69);
+            box-shadow: 0 4px 12px rgba(33, 60, 105, 0.25);
             transition: all 0.3s ease;
-            font-weight: bold;
-            gap: 10px; /* مسافة بين الرقم والاسم */
+            gap: 10px;
+            border: none;
+            cursor: pointer;
         }
 
-        /* ألوان قائمة تقرير الفحص (اليمين) */
-        .btn-ksh { background: linear-gradient(135deg, #d3755e, #bc401e); }
-        
-        /* ألوان قائمة تقرير الفحص (اليسار) */
-        .btn-tq { 
-            background: linear-gradient(135deg, #2980b9, #213c69); 
-            justify-content: center; /* جعل المحتوى في المنتصف تماماً */
-        }
-        
-        /* لون زر تقرير الفحص جديد */
-        .btn-100 { 
-            background: linear-gradient(135deg, #a19d9a, #a19d9a); 
-            justify-content: center; /* تظبيط المحاذاة للأزرار الجديدة */
-        }
-
-        .btn:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            filter: brightness(1.1);
+        .btn-tq:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 18px rgba(33, 60, 105, 0.35);
+            filter: brightness(1.08);
         }
 
         .status-bar {
             width: 100%;
-            max-width: 660px;
-            margin: 20px auto;
-            font-size: 13px;
-            color: #7f8c8d;
+            font-size: 14px;
+            color: #555;
             background: #fff;
             padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            line-height: 1.6;
+        }
+
+        /* تحسينات للشاشات الصغيرة جداً (الهواتف) */
+        @media (max-width: 480px) {
+            .header-section {
+                min-height: 240px;
+            }
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+            .menu-column {
+                padding: 20px 15px;
+            }
+            .btn-tq {
+                font-size: 15px;
+                padding: 12px 15px;
+            }
         }
     </style>
 </head>
@@ -134,16 +155,13 @@ width: 350px;
     </div>
 
     <div class="main-wrapper">
-        
         <div class="menu-column">
-            <h2> </h2>
-            <a href="tq/1/index.html" class="btn btn-tq" onclick="saveVisit(' تقرير الفحص')">
-                <span class="num-badge"></span> 📋 تقرير الفحص
+            <h2 class="menu-title">القائمة الرئيسية</h2>
+            <a href="tq/1/index.html" class="btn-tq" onclick="saveVisit('تقرير الفحص')">
+                📋 تقرير الفحص
             </a>
-
         </div>
 
-       
         <div id="status" class="status-bar">مرحباً بك في شركة ضواحي الخير</div>
     </div>
 
@@ -152,7 +170,7 @@ width: 350px;
         function saveVisit(actionName) {
             localStorage.setItem('last_action', actionName);
             const now = new Date();
-            const timeString = now.toLocaleDateString('ar-SA') + " | " + now.toLocaleTimeString('ar-SA');
+            const timeString = now.toLocaleDateString('ar-SA') + " | " + now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
             localStorage.setItem('last_action_time', timeString);
         }
 
@@ -160,9 +178,9 @@ width: 350px;
         window.onload = function() {
             const lastAction = localStorage.getItem('last_action');
             const lastTime = localStorage.getItem('last_action_time');
-            if (lastAction) {
+            if (lastAction && lastTime) {
                 document.getElementById('status').innerHTML = 
-                    "📂 <b>آخر إجراء:</b> " + lastAction + " <br> <small>" + lastTime + "</small>";
+                    "📂 <b>آخر إجراء:</b> " + lastAction + " <br><small style='color: #888;'>" + lastTime + "</small>";
             }
         }
     </script>
