@@ -184,7 +184,29 @@
                 }); 
             } 
         }
+document.getElementById('shareBtn').addEventListener('click', async function() {
+    const element = document.getElementById('pdf-content');
+    element.classList.add('exporting');
+    
+    const opt = {
+        margin: 0,
+        filename: 'تقرير_الفحص.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2,             
+            useCORS: true, 
+            logging: false,
+            letterRendering: true,
+            allowTaint: false,
+            scrollX: 0,          
+            scrollY: 0,
+            windowWidth: 794    
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
 
+<<<<<<< HEAD
         // وظيفة المشاركة (مشاركة الصفحة الأولى فقط)
         document.getElementById('shareBtn').addEventListener('click', async function() {
             const element = document.getElementById('page1'); 
@@ -209,8 +231,34 @@
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                 pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
             };
+=======
+    try {
+        window.scrollTo(0, 0);
+>>>>>>> 3c14305b6ebe8db4fc5a35797ad120cb28782c0a
 
+        // إنشاء الـ PDF واستخراج الـ Blob بشكل صحيح
+        const worker = html2pdf().set(opt).from(element);
+        const pdf = await worker.toPdf().get('pdf');
+        const pdfBlob = pdf.output('blob');
+        
+        const file = new File([pdfBlob], "تقرير_الفحص.pdf", { type: "application/pdf" });
+
+        // التنسيق للتحقق والمشاركة
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: 'تقرير_الفحص'
+            });
+        } else {
+            // تنزيل الملف في حال كان المتصفح لا يدعم مشاركة الملفات
+            await worker.save();
+        }
+    } catch (err) {
+        console.error("خطأ أثناء المشاركة:", err);
+        // إذا كان الخطأ ليس بسبب إلغاء المستخدم للمشاركة، يتم حفظ الملف مباشرة
+        if (err.name !== 'AbortError') {
             try {
+<<<<<<< HEAD
                 window.scrollTo(0, 0);
 
                 const worker = html2pdf().set(opt).from(element);
@@ -234,9 +282,17 @@
             } finally {
                 element.classList.remove('exporting');
                 btn.disabled = false;
+=======
+                await html2pdf().set(opt).from(element).save();
+            } catch (saveErr) {
+                console.error("خطأ أثناء الحفظ:", saveErr);
+>>>>>>> 3c14305b6ebe8db4fc5a35797ad120cb28782c0a
             }
-        });
-
+        }
+    } finally {
+        element.classList.remove('exporting');
+    }
+});
         document.getElementById('printBtn').addEventListener('click', () => window.print());
     </script>
 </body>
