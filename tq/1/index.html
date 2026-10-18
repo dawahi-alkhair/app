@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=794, initial-scale=1.0"> 
-    <title>كشف الركاب</title>
+    <title>تقرير الفحص</title>
     <!-- استدعاء مكتبة FontAwesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -220,53 +220,62 @@
                 updateAutoBoxes();
             } 
         }
+document.getElementById('shareBtn').addEventListener('click', async function() {
+    const element = document.getElementById('pdf-content');
+    element.classList.add('exporting');
+    
+    const opt = {
+        margin: 0,
+        filename: 'تقرير_الفحص.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2,             
+            useCORS: true, 
+            logging: false,
+            letterRendering: true,
+            allowTaint: false,
+            scrollX: 0,          
+            scrollY: 0,
+            windowWidth: 794    
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
 
-        document.getElementById('shareBtn').addEventListener('click', async function() {
-            const element = document.getElementById('pdf-content');
-            element.classList.add('exporting');
-            
-            const opt = {
-                margin: 0,
-                filename: 'كشف_الركاب.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2,            
-                    useCORS: true, 
-                    logging: false,
-                    letterRendering: true,
-                    allowTaint: false,
-                    scrollX: 0,          
-                    scrollY: 0,
-                    windowWidth: 794    
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
+    try {
+        window.scrollTo(0, 0);
 
+        // إنشاء الـ PDF واستخراج الـ Blob بشكل صحيح
+        const worker = html2pdf().set(opt).from(element);
+        const pdf = await worker.toPdf().get('pdf');
+        const pdfBlob = pdf.output('blob');
+        
+        const file = new File([pdfBlob], "تقرير_الفحص.pdf", { type: "application/pdf" });
+
+        // التنسيق للتحقق والمشاركة
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: 'تقرير_الفحص'
+            });
+        } else {
+            // تنزيل الملف في حال كان المتصفح لا يدعم مشاركة الملفات
+            await worker.save();
+        }
+    } catch (err) {
+        console.error("خطأ أثناء المشاركة:", err);
+        // إذا كان الخطأ ليس بسبب إلغاء المستخدم للمشاركة، يتم حفظ الملف مباشرة
+        if (err.name !== 'AbortError') {
             try {
-                window.scrollTo(0, 0);
-                const pdfWorker = html2pdf().set(opt).from(element);
-                
-                if (navigator.share && navigator.canShare) {
-                    const pdfBlob = await pdfWorker.output('blob');
-                    const file = new File([pdfBlob], "كشف_الركاب.pdf", { type: "application/pdf" });
-                    
-                    await navigator.share({
-                        files: [file],
-                        title: 'كشف الركاب'
-                    });
-                } else {
-                    await pdfWorker.save();
-                }
-            } catch (err) {
-                console.error(err);
-                alert("حدث خطأ، سيتم التحميل المباشر");
-                html2pdf().set(opt).from(element).save();
-            } finally {
-                element.classList.remove('exporting');
+                await html2pdf().set(opt).from(element).save();
+            } catch (saveErr) {
+                console.error("خطأ أثناء الحفظ:", saveErr);
             }
-        });
-
+        }
+    } finally {
+        element.classList.remove('exporting');
+    }
+});
         document.getElementById('printBtn').addEventListener('click', () => window.print());
     </script>
 </body>
