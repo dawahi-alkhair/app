@@ -3,33 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>نظام شركة نوال الفهمي التجارية - الرئيسية</title>
-=======
-    <title>شركة ضواحي الخير</title>
->>>>>>> 3c14305b6ebe8db4fc5a35797ad120cb28782c0a
+    <title> شركة ضواحي الخير</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; }
         
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f6f9; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f0f0; 
             text-align: center; 
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* الجزء العلوي */
         .header-section {
             width: 100%;
-            min-height: 350px;
-            background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.150)), url('header_bg.jpg'); 
+            height: 350px; /* زيادة الارتفاع لاستيعاب الشعار */
+            background-image: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.150)), url('header_bg.jpg'); 
             background-size: cover;
             background-position: center;
             display: flex;
@@ -37,8 +27,7 @@
             justify-content: center;
             align-items: center;
             color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            padding: 20px;
+            box-shadow: 0 4px 5px rgba(0,0,0,0.3);
         }
 
         .logo {
@@ -48,100 +37,70 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.0));
+            margin: 0 auto 10px auto;
+            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.0));
         }
 
         .header-section h1 { 
             margin: -30px auto 30px auto; 
             font-size: 26px; 
             letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,90.90); }
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
 
-        /* حاوية القوائم الأساسية - تتوسط الصفحة بالكامل */
+        /* حاوية القوائم الأساسية */
         .main-wrapper {
-            width: 100%;
-            max-width: 550px;
-            margin: -30px auto 30px auto;
-            padding: 0 15px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 20px;
-            position: relative;
-            z-index: 10;
+            padding: 20px;
+            max-width: 1000px;
+            margin: -30px auto 30px auto;
         }
 
         .menu-column {
-            width: 100%;
+            flex: 1;
+            min-width: 320px;
             background: white;
-            padding: 25px 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .menu-title { 
-            width: 100%;
+        h2 { 
             color: #2c3e50; 
             margin-bottom: 20px; 
             font-size: 18px; 
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
 
-        /* زر تقرير الفحص الأزرق ومتناسق كلياً */
-        .btn-tq { 
+        .btn {
             display: flex;
             align-items: center;
-<<<<<<< HEAD
             justify-content: flex-start; /* محاذاة العناصر من البداية */
             padding: 12px 15px;
-            margin: 10px 0;
+width: 350px;
+            margin: 10px  auto;
             font-size: 16px;
-=======
-            justify-content: center;
-            width: 100%;
-            max-width: 400px; /* العرض الأقصى للزر على اللابتوب */
-            padding: 14px 20px;
-            font-size: 17px;
-            font-weight: bold;
->>>>>>> 3c14305b6ebe8db4fc5a35797ad120cb28782c0a
             color: white;
             text-decoration: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #2980b9, #213c69);
-            box-shadow: 0 4px 12px rgba(33, 60, 105, 0.25);
+            border-radius: 10px;
             transition: all 0.3s ease;
-            gap: 10px;
-            border: none;
-            cursor: pointer;
+            font-weight: bold;
+            gap: 10px; /* مسافة بين الرقم والاسم */
         }
 
-<<<<<<< HEAD
-        /* تنسيق الأرقام داخل دائرة */
-        .num-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background-color: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-
-        /* ألوان قائمة كشف الركاب (اليمين) */
+        /* ألوان قائمة تقرير الفحص (اليمين) */
         .btn-ksh { background: linear-gradient(135deg, #d3755e, #bc401e); }
         
         /* ألوان قائمة تقرير الفحص (اليسار) */
-        .btn-tq { background: linear-gradient(135deg, #2980b9, #213c69); }
+        .btn-tq { 
+            background: linear-gradient(135deg, #2980b9, #213c69); 
+            justify-content: center; /* جعل المحتوى في المنتصف تماماً */
+        }
         
-        /* لون زر كشف جديد */
+        /* لون زر تقرير الفحص جديد */
         .btn-100 { 
             background: linear-gradient(135deg, #a19d9a, #a19d9a); 
             justify-content: center; /* تظبيط المحاذاة للأزرار الجديدة */
@@ -151,41 +110,18 @@
             transform: translateY(-3px); 
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             filter: brightness(1.1);
-=======
-        .btn-tq:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 18px rgba(33, 60, 105, 0.35);
-            filter: brightness(1.08);
->>>>>>> 3c14305b6ebe8db4fc5a35797ad120cb28782c0a
         }
 
         .status-bar {
             width: 100%;
-            font-size: 14px;
-            color: #555;
+            max-width: 660px;
+            margin: 20px auto;
+            font-size: 13px;
+            color: #7f8c8d;
             background: #fff;
             padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            line-height: 1.6;
-        }
-
-        /* تحسينات للشاشات الصغيرة جداً (الهواتف) */
-        @media (max-width: 480px) {
-            .header-section {
-                min-height: 240px;
-            }
-            .logo {
-                width: 120px;
-                height: 120px;
-            }
-            .menu-column {
-                padding: 20px 15px;
-            }
-            .btn-tq {
-                font-size: 15px;
-                padding: 12px 15px;
-            }
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
     </style>
 </head>
@@ -193,174 +129,22 @@
 
     <div class="header-section">
         <div class="logo"></div>
-        <h1>شركة نوال الفهمي التجارية</h1>
-        <h1>نظام الكشوفات والتقارير</h1>
+        <h1>شركة ضواحي الخير</h1>
+        <h1>نظام التقارير</h1>
     </div>
 
     <div class="main-wrapper">
+        
         <div class="menu-column">
-<<<<<<< HEAD
-            <h2>📋 قائمة كشف الركاب</h2>
-            <a href="ksh/1/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: عيسى شافي')">
-                <span class="num-badge">1</span> 👤 عيسى محمد شافي
+            <h2> </h2>
+            <a href="tq/1/index.html" class="btn btn-tq" onclick="saveVisit(' تقرير الفحص')">
+                <span class="num-badge"></span> 📋 تقرير الفحص
             </a>
-            <a href="ksh/2/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: صالح أمين')">
-                <span class="num-badge">2</span> 👤 صالح محمد امين
-            </a>
-            <a href="ksh/3/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: مصطفى مبارك')">
-                <span class="num-badge">3</span> 👤 مصطفى مبارك عبد الماجيد
-            </a>
-            <a href="ksh/4/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: حبيب كالو')">
-                <span class="num-badge">4</span> 👤 حبيب محمد كالو
-            </a>
-            <a href="ksh/5/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: محمد موسى')">
-                <span class="num-badge">5</span> 👤 محمد محمد حسين موسى
-            </a>
-            <a href="ksh/6/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: حسين احمد')">
-                <span class="num-badge">6</span> 👤 حسين عبدالملك نور احمد
-            </a>
-            <a href="ksh/7/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: ابراهيم مياه')">
-                <span class="num-badge">7</span> 👤 ابراهيم ولي مياه
-            </a>
-            <a href="ksh/8/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: نور عبدالعزيز')">
-                <span class="num-badge">8</span> 👤 نور عبدالعزيز مخلص
-            </a>
-            <a href="ksh/9/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: عواف المشور')">
-                <span class="num-badge">9</span> 👤 عواف محمد هاشم المشور
-            </a>
-            <a href="ksh/10/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: محمد حسين')">
-                <span class="num-badge">10</span> 👤 محمد احمد محمد حسين
-            </a>
-            <a href="ksh/11/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: عبدالرحمن علي')">
-                <span class="num-badge">11</span> 👤 عبدالرحمن اصدر علي
-            </a>
-            <a href="ksh/12/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: رشاد اسلام ')">
-                <span class="num-badge">12</span> 👤 رشاد عبدالمجيد اسلام 
-            </a>
-            <a href="ksh/13/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: يوسف عبدالكريم ')">
-                <span class="num-badge">13</span> 👤 يوسف ابو حسين عبدالكريم 
-            </a>
-            <a href="ksh/14/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: محمد اكبر ')">
-                <span class="num-badge">14</span> 👤 محمد اكبر محمدعلي 
-            </a>
-            <a href="ksh/15/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: عادل ابو الكلام ')">
-                <span class="num-badge">15</span> 👤 عادل حافظ ابو الكلام 
-            </a>
-            <a href="ksh/16/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: ياسين مقبول ')">
-                <span class="num-badge">16</span> 👤 ياسين حميد حسين مقبول 
-            </a>
-            <a href="ksh/17/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: محمد زين العابدين ')">
-                <span class="num-badge">17</span> 👤 محمد مهدي زين العابدين 
-            </a>
-            <a href="ksh/18/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: فهد حسين ')">
-                <span class="num-badge">18</span> 👤 فهد احمد محمد حسين 
-            </a>
-            <a href="ksh/19/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: سعود حسين ')">
-                <span class="num-badge">19</span> 👤 سعود سيد حسين 
-            </a>
-            <a href="ksh/20/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: فهد عبدالله ')">
-                <span class="num-badge">20</span> 👤 فهد عبدالله مطيع الرحمن 
-            </a>
-            <a href="ksh/21/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: زكريا ابو بكر ')">
-                <span class="num-badge">21</span> 👤 زكريا محمد ابو بكر 
-            </a>
-            <a href="ksh/22/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: عبدالله احمد ')">
-                <span class="num-badge">22</span> 👤 عبدالله احمد حسين 
-            </a>
-            <a href="ksh/23/index.html" class="btn btn-ksh" onclick="saveVisit('كشف ركاب: صادق ابو الحسين ')">
-                <span class="num-badge">22+</span> 👤 صادق محمد ابو الحسين 
-            </a>
-            <a href="ksh/100/index.html" class="btn btn-100" onclick="saveVisit('كشف ركاب جديد')">
-                ➕ كشف ركاب جديد
-            </a>
+
         </div>
 
-        <div class="menu-column">
-            <h2>🔍 قائمة تقرير الفحص</h2>
-            <a href="tq/1/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: عيسى شافي')">
-                <span class="num-badge">1</span> 👤 عيسى محمد شافي
-            </a>
-            <a href="tq/2/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: صالح امين')">
-                <span class="num-badge">2</span> 👤 صالح محمد امين
-            </a>
-            <a href="tq/3/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: مصطفى عبد الماجيد')">
-                <span class="num-badge">3</span> 👤 مصطفى مبارك عبد الماجيد
-            </a>
-            <a href="tq/4/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: حبيب كالو')">
-                <span class="num-badge">4</span> 👤 حبيب محمد كالو
-            </a>
-            <a href="tq/5/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: محمد موسى')">
-                <span class="num-badge">5</span> 👤 محمد محمد حسين موسى
-            </a>
-            <a href="tq/6/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: حسين احمد')">
-                <span class="num-badge">6</span> 👤 حسين عبدالملك نور احمد
-            </a>
-            <a href="tq/7/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: ابراهيم مياه')">
-                <span class="num-badge">7</span> 👤 ابراهيم ولي مياه
-            </a>
-            <a href="tq/8/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: نور عبدالعزيز')">
-                <span class="num-badge">8</span> 👤 نور عبدالعزيز مخلص
-            </a>
-            <a href="tq/9/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: عواف المشور')">
-                <span class="num-badge">9</span> 👤 عواف محمد هاشم المشور
-            </a>
-            <a href="tq/10/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: محمد حسين')">
-                <span class="num-badge">10</span> 👤 محمد احمد محمد حسين
-            </a>
-            <a href="tq/11/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: عبدالرحمن علي')">
-                <span class="num-badge">11</span> 👤 عبدالرحمن اصدر علي
-            </a>
-            <a href="tq/12/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: رشاد اسلام')">
-                <span class="num-badge">12</span> 👤 رشاد عبدالمجيد اسلام
-            </a>
-            <a href="tq/13/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: يوسف عبدالكريم')">
-                <span class="num-badge">13</span> 👤 يوسف ابو حسين عبدالكريم
-            </a>
-            <a href="tq/14/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: محمد اكبر')">
-                <span class="num-badge">14</span> 👤 محمد اكبر محمدعلي
-            </a>
-            <a href="tq/15/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: عادل ابو الكلام')">
-                <span class="num-badge">15</span> 👤 عادل حافظ ابو الكلام
-            </a>
-            <a href="tq/16/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: ياسين مقبول')">
-                <span class="num-badge">16</span> 👤 ياسين حميد حسين مقبول
-            </a>
-            <a href="tq/17/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: محمد العابدين')">
-                <span class="num-badge">17</span> 👤 محمد مهدي زين العابدين
-            </a>
-            <a href="tq/18/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: فهد حسين')">
-                <span class="num-badge">18</span> 👤 فهد احمد محمد حسين
-            </a>
-            <a href="tq/19/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: سعود حسين')">
-                <span class="num-badge">19</span> 👤 سعود سيد حسين
-            </a>
-            <a href="tq/20/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: فهد عبدالله')">
-                <span class="num-badge">20</span> 👤 فهد عبدالله مطيع الرحمن
-            </a>
-            <a href="tq/21/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: زكريا ابو بكر')">
-                <span class="num-badge">21</span> 👤 زكريا محمد ابو بكر
-            </a>
-            <a href="tq/22/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: عبدالله احمد')">
-                <span class="num-badge">22</span> 👤 عبدالله احمد حسين
-            </a>
-            <a href="tq/23/index.html" class="btn btn-tq" onclick="saveVisit('تقرير فحص: صادق ابو الحسين')">
-                <span class="num-badge">22+</span> 👤 صادق محمد ابو الحسين
-            </a>
-            <a href="tq/100/index.html" class="btn btn-100" onclick="saveVisit('تقرير فحص جديد')">
-                📝 تقرير فحص جديد
-            </a>
-        </div>
-
-        <div id="status" class="status-bar">مرحباً بك في نظام شركة نوال الفهمي التجارية</div>
-=======
-            <h2 class="menu-title">القائمة الرئيسية</h2>
-            <a href="tq/1/index.html" class="btn-tq" onclick="saveVisit('تقرير الفحص')">
-                📋 تقرير الفحص
-            </a>
-        </div>
-
+       
         <div id="status" class="status-bar">مرحباً بك في شركة ضواحي الخير</div>
->>>>>>> 3c14305b6ebe8db4fc5a35797ad120cb28782c0a
     </div>
 
     <script>
@@ -368,7 +152,7 @@
         function saveVisit(actionName) {
             localStorage.setItem('last_action', actionName);
             const now = new Date();
-            const timeString = now.toLocaleDateString('ar-SA') + " | " + now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            const timeString = now.toLocaleDateString('ar-SA') + " | " + now.toLocaleTimeString('ar-SA');
             localStorage.setItem('last_action_time', timeString);
         }
 
@@ -376,9 +160,9 @@
         window.onload = function() {
             const lastAction = localStorage.getItem('last_action');
             const lastTime = localStorage.getItem('last_action_time');
-            if (lastAction && lastTime) {
+            if (lastAction) {
                 document.getElementById('status').innerHTML = 
-                    "📂 <b>آخر إجراء:</b> " + lastAction + " <br><small style='color: #888;'>" + lastTime + "</small>";
+                    "📂 <b>آخر إجراء:</b> " + lastAction + " <br> <small>" + lastTime + "</small>";
             }
         }
     </script>
